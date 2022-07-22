@@ -1,0 +1,121 @@
+Dataset- exercise_data/network_analysis/network.qgz
+
+It contains two layers:
+network_points
+network_lines
+
+The shortest path tools provide ways to calculate either the shortest or the fastest path between two points of a network, given:
+start point and end point selected on the map
+start point selected on the map and end points taken from a point layer
+start points taken from a point layer and end point selected on the map
+
+
+Calculating the shortest path (point to point)
+The Network analysis ‣ Shortest path (point to point) allows you to calculate the shortest distance between two manually selected points on the map.
+
+In the following image we choose these two points as starting and ending point for the analysis:
+
+../../../_images/start_end_point.png
+
+Open the Shortest path (point to point) algorithm
+
+Select network_lines for Vector layer representing network
+
+Let Shortest in the Path type to calculate parameter
+
+Click on the … button next to the Start point (x, y) and choose the location tagged with Starting Point in the picture. The menu is filled with the coordinates of the clicked point.
+
+Do the same thing but choosing the location tagged with Ending point for End point (x, y)
+
+Click on the Run button:
+
+../../../_images/shortest_point.png
+
+A new line layer is created representing the shortest path between the chosen points. Uncheck the network_lines layer to see the result better:
+
+../../../_images/shortest_point_result.png
+
+Let’s open the attribute table of the output layer. It contains three fields, representing the coordinates of the starting and ending points and the cost.
+
+We chose Shortest as Path type to calculate, so the cost represent the distance, in layer units, between the two locations.
+
+In our case, the shortest distance between the chosen points is around 1000 meters:
+
+../../../_images/shortest_point_attributes.png
+
+
+moderate Follow Along: Advanced options
+Let’s explore some more options of the Network Analysis tools. In the previous exercise we calculated the fastest route between two points. As you can imagine, the time depends on the travel speed.
+We will use the same layers and same starting and ending points of the previous exercises.
+Open the Shortest path (point to point) algorithm
+Fill the Input layer, Start point (x, y) and End point (x, y) as we did before
+Choose Fastest as the Path type to calculate
+Open the Advanced parameter menu
+Change the Default speed (km/h) from the default 50 value to 4
+
+../../../_images/shortest_path_advanced.png
+
+Click on Run
+
+Once the algorithm is finished, close the dialog and open the attribute table of the output layer.
+
+The cost field contains the value according to the speed parameter you have chosen. We can convert the cost field from hours with fractions to the more readable minutes values.
+
+Open the field calculator by clicking on the calculateField icon and add the new field minutes by multiplying the cost field by 60:
+
+../../../_images/shortest_path_conversion.png
+
+
+
+ Shortest map with speed limit
+The Network analysis toolbox has other interesting options. Looking at the following map:
+
+../../../_images/speed_limit.png
+
+we would like to know the fastest route considering the speed limits of each road (the labels represent the speed limits in km/h). The shortest path without considering speed limits would of course be the purple path. But in that road the speed limit is 20 km/h, while in the green road you can go at 100 km/h!
+
+As we did in the first exercise, we will use the Network analysis ‣ Shortest path (point to point) and we will manually choose the start and end points.
+
+Open the Network analysis ‣ Shortest path (point to point) algorithm
+
+Select network_lines for the Vector layer representing network parameter
+
+Choose Fastest as the Path type to calculate
+
+Click on the … button next to the Start point (x, y) and choose the location tagged with Start Point in the picture. The menu is filled with the coordinates of the clicked point.
+
+Do the same thing but choosing the location tagged with End point for End point (x, y)
+
+Open the Advanced parameters menu
+
+Choose the speed field as the Speed Field parameter. With this option the algorithm will take into account the speed values for each road.
+
+../../../_images/speed_limit_parameters.png
+
+Click on the Run button
+
+Turn off the network_lines layer to better see the result
+
+../../../_images/speed_limit_result.png
+
+
+Moderate Service area (from layer)
+The Network Analysis ‣ Service area (from layer) algorithm can answer the question: given a point layer, what are all the reachable areas given a distance or a time value?
+
+
+
+The Network Analysis ‣ Service area (from point) is the same algorithm but, it allows you to manually choose the point on the map.
+Given a distance of 250 meters we want to know how far we can go on the network from each point of the network_points layer.
+Uncheck all the layers except network_points
+Open the Network Analysis ‣ Service area (from layer) algorithm
+Choose network_lines for Vector layer representing network
+Choose network_points for Vector layer with start points
+Choose Shortest in Path type to calculate
+Enter 250 in the Travel cost parameter
+Click on Run and then close the dialog
+
+../../../_images/service_area.png
+
+The output layer represents the maximum path you can reach from the point features given a distance of 250 meters:
+
+../../../_images/service_area_result.png
